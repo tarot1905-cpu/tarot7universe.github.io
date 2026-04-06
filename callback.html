@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Tarot7Universe - Authorization</title>
+      <style>
+          body {
+              font-family: 'Segoe UI', sans-serif;
+              background: #0a0a1a;
+              color: #e0d8c8;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              min-height: 100vh;
+              margin: 0;
+          }
+          .box {
+              text-align: center;
+              padding: 40px;
+              border: 1px solid #c9a84c33;
+              border-radius: 16px;
+              max-width: 500px;
+          }
+          h1 { color: #c9a84c; font-size: 1.5rem; margin-bottom: 16px; }
+          .code {
+              background: #1a1a2e;
+              border: 1px solid #c9a84c44;
+              border-radius: 8px;
+              padding: 16px;
+              font-family: monospace;
+              font-size: 1.1rem;
+              color: #f0d78c;
+              word-break: break-all;
+              margin: 20px 0;
+              cursor: pointer;
+          }
+          p { color: #8a7f6a; line-height: 1.6; }
+          .hint { font-size: 0.85rem; margin-top: 12px; }
+      </style>
+  </head>
+  <body>
+      <div class="box">
+          <h1>&#x2728; Authorization Successful</h1>
+          <p>Your authorization code:</p>
+          <div class="code" id="code" onclick="copyCode()">Loading...</div>
+          <p>Copy this code and paste it into TarotEvren application.</p>
+          <p class="hint" id="hint"></p>
+      </div>
+      <script>
+          const params = new URLSearchParams(window.location.search);
+          const code = params.get('code');
+          const el = document.getElementById('code');
+          const hint = document.getElementById('hint');
+          if (code) {
+              el.textContent = code;
+              hint.textContent = 'Click the code to copy it.';
+          } else {
+              el.textContent = 'No code received';
+              el.style.color = '#ff6b6b';
+              hint.textContent = window.location.search || 'No parameters found.';
+          }
+          function copyCode() {
+              if (code) {
+                  navigator.clipboard.writeText(code);
+                  hint.textContent = 'Copied!';
+                  setTimeout(() => hint.textContent = 'Click the code to copy it.', 2000);
+              }
+          }
+      </script>
+  </body>
+  </html>
